@@ -6,22 +6,73 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+      if (profile.active) {
+        if (reason) {
+          profile.active = false;
+          profile.reason = reason;
+          return profile;
+        } else {
+          return 'confirm status manually';
+        }
+      } else {
+        profile.active = true;
+        delete profile.reason;
+        return profile;
+      }
     }
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
-
+      if (x < 1 || x > 3 || y < 1 || y > 3) {
+        return "invalid coordinates";
     }
+    const row = y -1;
+    const col = x -1;
+
+    if (grid[row][col] === "🟥") {
+      return "🟥 💀";
+    } else if (grid[row][col] === "🟦") {
+      return "🟦 🥳";
+    }
+  }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
+      for (let key in obj) {
+        if (key.length > 9) {
+          return "shorten all prop names to 9 chars or less";
+        }
+      }
+      let result = {};
 
+      for (let key in obj) {
+        if (obj[key] === null) {
+          continue;
+        } else if (obj[key] === 0) {
+          result[key] = false;
+        } else if (obj[key] === 1) {
+          result[key] = true;
+        } else {
+          result[key] =  obj[key];
+        }
+      }
+      return result;
     }
+    
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
+      if (!text || forbidden.length === 0) {
+        return text;
+      }
+      let words = text.split(' ');
 
+      for (let i = 0; i < words.length; i++) {
+        if (forbidden.includes(words[i])) {
+          words[i] = 'x'.repeat(words[i].length);
+        }
+      }
+      return words.join(' ');
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
